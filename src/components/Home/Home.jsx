@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
 import "./Home.css";
-import { Title } from "../components/Title/Title";
+import { Title } from "../Title/Title";
 
 const Home = () => {
   const [titleFilter, setTitleFilter] = useState("Avengers");
@@ -16,7 +16,6 @@ const Home = () => {
     axios
       .get(searchUrl)
       .then((response) => {
-        console.log(response);
         setMovies(response.data.Search);
       })
       .catch((err) => {

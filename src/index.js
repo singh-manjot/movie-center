@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route} from "react-router-dom";
-import Home from './Home/Home';
+import Home from './components/Home/Home';
 import dotenv from 'dotenv';
 dotenv.config();
-console.log(process.env)
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
