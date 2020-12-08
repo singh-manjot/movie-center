@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import {BrowserRouter, Route} from "react-router-dom";
+import Home from './Home/Home';
+import dotenv from 'dotenv';
+dotenv.config();
+console.log(process.env)
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+    <Route path="/" component={Home}></Route>
+    {/* <Route path="/movie/" component={Movie}></Route> */}
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
