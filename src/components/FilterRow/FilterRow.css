@@ -1,0 +1,20 @@
+.row {
+  margin-top: 3%;
+  background-color: yellow;
+  text-align: center;
+}
+
+.row > span {
+  background-color: white;
+  padding: 10px 20px;
+}
+
+input{
+    padding: 20px;
+    background-color: indigo;
+}
+
+label{
+    background-color: white;
+    margin-right: 2%;
+}

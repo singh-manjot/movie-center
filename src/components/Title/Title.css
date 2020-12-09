@@ -1,7 +1,9 @@
-.title{
-    text-align: center;
-    font-size: 60px;
-    border-radius: 80%;
-    background-color: red;
-    margin-top: 0px;
+.title {
+  text-align: center;
+  font-size: 60px;
+  border-radius: 50%;
+  background-color: rgb(240, 101, 86);
+  opacity:100%;
+  margin-top: 1%;
+  border: 10px inset red;
 }
