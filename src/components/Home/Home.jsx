@@ -11,6 +11,7 @@ const Home = () => {
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [mediaTypeFilter, setMediaTypeFilter] = useState("movie");
   const [movies, setMovies] = useState(null);
+  /// gotta use this
   const [page, setPage] = useState(1);
 
   const filters = ["Title", "Release Year", "Media Type"];
@@ -47,10 +48,12 @@ const Home = () => {
     <div>
       <Title>Movie Center</Title>
       <FilterRow filters={filters} onChange={onFilterChange} />
+      <div className="movieCardsContainer">
       {movies &&
-        movies.map((movie, i) => (
-          <MovieCard key={i} name={movie.Title}></MovieCard>
+        movies.map((movie) => (
+          <MovieCard key={movie.imdbID} id={movie.imdbID} name={movie.Title} imageUrl={movie.Poster} releaseYear={movie.Year}></MovieCard>
         ))}
+        </div>
     </div>
   );
 };

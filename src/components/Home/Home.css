@@ -5,3 +5,10 @@
   background-color: #242222;
   color: grey;
 }
+
+.movieCardsContainer{
+  display: block;
+  margin: auto;
+  text-align: center;
+  overflow-wrap: normal;
+}
