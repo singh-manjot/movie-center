@@ -5,6 +5,7 @@ import "./Home.css";
 import { Title } from "../Title/Title";
 import FilterRow from "../FilterRow/FilterRow";
 import MovieCard from "../MovieCard/MovieCard";
+import PageSwitch from "../PageSwitch/PageSwitch";
 
 const Home = () => {
   const [titleFilter, setTitleFilter] = useState("Avengers");
@@ -12,20 +13,22 @@ const Home = () => {
   const [mediaTypeFilter, setMediaTypeFilter] = useState("movie");
   const [movies, setMovies] = useState(null);
   /// gotta use this
-  const [page, setPage] = useState(1);
-
-  const filters = ["Title", "Release Year", "Media Type"];
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const onFilterChange = (filterType, value) => {
     switch (filterType) {
       case "Title":
         let title = value === "" ? "Avengers" : value;
+        setCurrentPage(1);
         setTitleFilter(title);
         break;
       case "Release Year":
+        setCurrentPage(1);
         setReleaseYearFilter(value);
         break;
       case "Media Type":
+        setCurrentPage(1);
         setMediaTypeFilter(value);
         break;
       default:
@@ -33,27 +36,43 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${titleFilter}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${page}`;
+    let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${titleFilter}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${currentPage}`;
     axios
       .get(searchUrl)
       .then((response) => {
+        const pagesExpected = Math.ceil(
+          response.data.totalResults / response.data.Search.length
+        );
+        setTotalPages(pagesExpected);
         setMovies(response.data.Search);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [titleFilter, releaseYearFilter, mediaTypeFilter, page]);
+  }, [titleFilter, releaseYearFilter, mediaTypeFilter, currentPage]);
 
   return (
     <div>
       <Title>Movie Center</Title>
-      <FilterRow filters={filters} onChange={onFilterChange} />
+      <FilterRow onChange={onFilterChange} />
       <div className="movieCardsContainer">
-      {movies &&
-        movies.map((movie) => (
-          <MovieCard key={movie.imdbID} id={movie.imdbID} name={movie.Title} imageUrl={movie.Poster} releaseYear={movie.Year}></MovieCard>
-        ))}
-        </div>
+        {movies &&
+          movies.map((movie) => (
+            <MovieCard
+              key={movie.imdbID}
+              id={movie.imdbID}
+              name={movie.Title}
+              imageUrl={movie.Poster}
+              releaseYear={movie.Year}
+            ></MovieCard>
+          ))}
+      </div>
+      {/** Needs fixing for unnecessary renders */}
+      {/* <PageSwitch
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSwitch={(page) => setCurrentPage(page)}
+      /> */}
     </div>
   );
 };

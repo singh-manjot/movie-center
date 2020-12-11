@@ -1,17 +1,16 @@
 .movieCard {
-    position: relative;
+  position: relative;
   max-width: 100%;
-  height: 420px;
+  height: 350px;
   margin: 50px;
-  width: 350px;
-  margin-bottom: 200px;
+  width: 300px;
+  margin-bottom: 100px;
   overflow: hidden;
 }
 
 .movieCard:hover {
-  animation: enlargeCard 1s forwards;
+  animation: enlargeCard 0.8s forwards;
   cursor: pointer;
-
 }
 
 @keyframes enlargeCard {

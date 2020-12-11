@@ -9,10 +9,12 @@ import Movie from "./components/Movie/Movie";
 dotenv.config();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
       <Route exact path="/" component={Home}></Route>
       <Route path="/movie/:title" component={Movie}></Route>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

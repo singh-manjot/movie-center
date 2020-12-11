@@ -1,0 +1,40 @@
+.pageOptions {
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  margin: 20px;
+}
+
+.pageOption {
+  padding: 5px 10px;
+  margin: 0.5%;
+  font-size: 120%;
+  color: white;
+  border: none;
+}
+
+#selectedPageOption {
+  border: 2px solid white;
+  color: red;
+  border-radius: 30%;
+  font-weight: bolder;
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.changePage {
+  padding: 15px;
+  border: none;
+  color: white;
+  font-size: 110%;
+  outline: none;
+}
+
+.changePage:disabled {
+  cursor: not-allowed;
+  color: gray;
+
+}
