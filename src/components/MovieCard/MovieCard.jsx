@@ -6,7 +6,7 @@ const MovieCard = (props) => {
       to={{
         pathname: `/movie/${props.name}`,
         state: {
-          ...props
+          ...props,
         },
       }}
     >

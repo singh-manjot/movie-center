@@ -6,13 +6,13 @@ import { Title } from "../Title/Title";
 import FilterRow from "../FilterRow/FilterRow";
 import MovieCard from "../MovieCard/MovieCard";
 import PageSwitch from "../PageSwitch/PageSwitch";
-
+import Spinner from "../Spinner/Spinner";
 const Home = () => {
   const [titleFilter, setTitleFilter] = useState("Avengers");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
   const [mediaTypeFilter, setMediaTypeFilter] = useState("movie");
   const [movies, setMovies] = useState(null);
-  /// gotta use this
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -25,6 +25,7 @@ const Home = () => {
         break;
       case "Release Year":
         setCurrentPage(1);
+        console.log("Setting year", value);
         setReleaseYearFilter(value);
         break;
       case "Media Type":
@@ -36,15 +37,18 @@ const Home = () => {
     }
   };
   useEffect(() => {
+    setLoading(true);
     let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${titleFilter}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${currentPage}`;
     axios
       .get(searchUrl)
       .then((response) => {
-        const pagesExpected = Math.ceil(
-          response.data.totalResults / response.data.Search.length
-        );
+        const pagesExpected = response.data.Search
+          ? Math.ceil(response.data.totalResults / 10)
+          : 0;
+        console.log("Expecting pages ", pagesExpected);
         setTotalPages(pagesExpected);
         setMovies(response.data.Search);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -55,24 +59,37 @@ const Home = () => {
     <div>
       <Title>Movie Center</Title>
       <FilterRow onChange={onFilterChange} />
-      <div className="movieCardsContainer">
-        {movies &&
-          movies.map((movie) => (
-            <MovieCard
-              key={movie.imdbID}
-              id={movie.imdbID}
-              name={movie.Title}
-              imageUrl={movie.Poster}
-              releaseYear={movie.Year}
-            ></MovieCard>
-          ))}
-      </div>
-      {/** Needs fixing for unnecessary renders */}
-      {/* <PageSwitch
-        currentPage={currentPage}
-        totalPages={totalPages}
-        pageSwitch={(page) => setCurrentPage(page)}
-      /> */}
+      {movies ? (
+        <>
+          <div className="movieCardsContainer">
+            {movies &&
+              movies.map((movie) => (
+                <MovieCard
+                  key={movie.imdbID}
+                  id={movie.imdbID}
+                  name={movie.Title}
+                  imageUrl={movie.Poster}
+                  releaseYear={movie.Year}
+                ></MovieCard>
+              ))}
+          </div>
+          <PageSwitch
+            currentPage={currentPage}
+            totalPages={totalPages}
+            pageSwitch={(page) => setCurrentPage(page)}
+          />
+        </>
+      ) : loading ? (
+        <Spinner size={100} loading={!movies} />
+      ) : (
+        <div className="nothingFound">
+          Nothing Found. Please adjust filters to find a title! <br />
+          <img
+            src={process.env.PUBLIC_URL + "/nothing.png"}
+            alt="Nothing Found"
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,21 +1,27 @@
 .pageOptions {
   position: relative;
-  bottom: 0;
   text-align: center;
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .pageOption {
   padding: 5px 10px;
-  margin: 0.5%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
   font-size: 120%;
   color: white;
   border: none;
 }
 
+.pageOption:hover{
+  border: 2px solid gray;
+  border-radius: 30%;
+}
+
 #selectedPageOption {
-  border: 2px solid white;
-  color: red;
+  border: 2px solid red;
+  color: #6fbff5;
   border-radius: 30%;
   font-weight: bolder;
   outline: none;
@@ -28,7 +34,7 @@ button:hover {
 .changePage {
   padding: 15px;
   border: none;
-  color: white;
+  color: #6fbff5;
   font-size: 110%;
   outline: none;
 }

@@ -4,13 +4,17 @@
   height: 350px;
   margin: 50px;
   width: 300px;
+  background: white;
   margin-bottom: 100px;
   overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 5pt 5pt red;
 }
 
 .movieCard:hover {
   animation: enlargeCard 0.8s forwards;
   cursor: pointer;
+  box-shadow: 0 0 10pt 10pt #6fbff5;
 }
 
 @keyframes enlargeCard {

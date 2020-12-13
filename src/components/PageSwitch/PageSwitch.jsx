@@ -20,6 +20,7 @@ const PageSwitch = (props) => {
         return (
           <>
             <button
+              key={option}
               id={option === props.currentPage ? "selectedPageOption" : ""}
               className="pageOption"
               onClick={() => {

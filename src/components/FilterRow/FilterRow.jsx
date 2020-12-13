@@ -22,7 +22,7 @@ const FilterRow = (props) => {
         }}
       >
         {yearOptions.map((year) => (
-          <option value={year}>
+          <option key={year} value={year}>
             {year === "" ? "Select Release Year" : year}
           </option>
         ))}
@@ -37,7 +37,7 @@ const FilterRow = (props) => {
         }}
       >
         {allowedMediaTypes.map((mediaType) => (
-          <option value={mediaType}>
+          <option key={mediaType} value={mediaType}>
             {mediaType === "" ? "Select Media Type" : mediaType}
           </option>
         ))}
