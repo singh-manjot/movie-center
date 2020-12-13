@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import axios from "axios";
-import "./Home.css";
 import { Title } from "../Title/Title";
 import FilterRow from "../FilterRow/FilterRow";
 import MovieCard from "../MovieCard/MovieCard";
 import PageSwitch from "../PageSwitch/PageSwitch";
 import Spinner from "../Spinner/Spinner";
+import "./Home.css";
+
 const Home = () => {
   const [titleFilter, setTitleFilter] = useState("Avengers");
   const [releaseYearFilter, setReleaseYearFilter] = useState("");
-  const [mediaTypeFilter, setMediaTypeFilter] = useState("movie");
+  const [mediaTypeFilter, setMediaTypeFilter] = useState("");
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +26,6 @@ const Home = () => {
         break;
       case "Release Year":
         setCurrentPage(1);
-        console.log("Setting year", value);
         setReleaseYearFilter(value);
         break;
       case "Media Type":
@@ -45,7 +45,6 @@ const Home = () => {
         const pagesExpected = response.data.Search
           ? Math.ceil(response.data.totalResults / 10)
           : 0;
-        console.log("Expecting pages ", pagesExpected);
         setTotalPages(pagesExpected);
         setMovies(response.data.Search);
         setLoading(false);
@@ -53,15 +52,17 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [titleFilter, releaseYearFilter, mediaTypeFilter, currentPage]);
+  }, [titleFilter, currentPage, mediaTypeFilter, releaseYearFilter]);
 
   return (
     <div>
       <Title>Movie Center</Title>
       <FilterRow onChange={onFilterChange} />
-      {movies ? (
+      {loading ? (
+        <Spinner size={100} loading={loading} />
+      ) : movies ? (
         <>
-          <div className="movieCardsContainer">
+          <span className="movieCardsContainer">
             {movies &&
               movies.map((movie) => (
                 <MovieCard
@@ -72,15 +73,13 @@ const Home = () => {
                   releaseYear={movie.Year}
                 ></MovieCard>
               ))}
-          </div>
+          </span>
           <PageSwitch
             currentPage={currentPage}
             totalPages={totalPages}
             pageSwitch={(page) => setCurrentPage(page)}
           />
         </>
-      ) : loading ? (
-        <Spinner size={100} loading={!movies} />
       ) : (
         <div className="nothingFound">
           Nothing Found. Please adjust filters to find a title! <br />

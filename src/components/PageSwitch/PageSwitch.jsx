@@ -53,7 +53,7 @@ const generateVisiblePageNumbers = (currentPage, lastPageNumber) => {
     lastPageNumber--;
   }
 
-  return numbers.sort();
+  return numbers.sort((a, b) => a - b);
 };
 
 export default PageSwitch;

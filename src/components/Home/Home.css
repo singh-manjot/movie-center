@@ -3,14 +3,12 @@
 * {
   font-family: "Cuprum", sans-serif;
   background-color: black;
-  color: #2e9feb;
 }
 
 .movieCardsContainer {
   display: block;
   margin: auto;
   text-align: center;
-  overflow-wrap: normal;
 }
 
 .nothingFound {
@@ -19,6 +17,7 @@
   text-align: center;
   font-size: 20px;
 }
+
 .nothingFound > img {
   margin-top: 20px;
   max-width: 100%;

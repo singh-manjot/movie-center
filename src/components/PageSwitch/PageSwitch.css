@@ -1,8 +1,11 @@
 .pageOptions {
   position: relative;
-  text-align: center;
+  margin: auto;
   margin-top: 20px;
-  margin-bottom: 0px;
+  text-align: center;
+  bottom: 0;
+  float: inline-end;
+  max-width: 100%;
 }
 
 .pageOption {
@@ -11,10 +14,11 @@
   margin-right: 0.5%;
   font-size: 120%;
   color: white;
+  outline: none;
   border: none;
 }
 
-.pageOption:hover{
+.pageOption:hover {
   border: 2px solid gray;
   border-radius: 30%;
 }
@@ -42,5 +46,4 @@ button:hover {
 .changePage:disabled {
   cursor: not-allowed;
   color: gray;
-
 }

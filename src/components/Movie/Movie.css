@@ -1,0 +1,44 @@
+.movieContainer {
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
+}
+
+.data {
+  margin: 10px 100px;
+  text-align: initial;
+  color: white;
+}
+
+.data > div {
+  margin: 20px;
+}
+
+.subHeading {
+  text-align: center;
+  font-size: 40px;
+  text-decoration: underline;
+  padding: 10px;
+}
+.h4 {
+  color: #6fbff5;
+  display: inline-block;
+}
+
+.da {
+  line-break: unset;
+  overflow-x: auto;
+  display: inline;
+}
+
+img {
+  max-width: 100%;
+  height: 450px;
+  width: 400px;
+  border-radius: 40px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  padding: 10px;
+  border: 5px solid white;
+}
