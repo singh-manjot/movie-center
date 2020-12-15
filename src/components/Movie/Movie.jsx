@@ -55,8 +55,12 @@ const Movie = (props) => {
         </PageTitle>
         <img src={getUrlIfImageExists(Poster)} alt={Title}></img>
         <div className="data">
-          <div className="subHeading"> Plot</div>
-          <div>{Plot}</div>
+          {Plot && (
+            <>
+              <div className="subHeading"> Plot</div>
+              <div>{Plot}</div>{" "}
+            </>
+          )}
           <div className="subHeading"> Other Details</div>
           <div>
             Directed By {Director} and produced by {Production} in {Year}, "
@@ -65,9 +69,7 @@ const Movie = (props) => {
             {Math.round(Runtime.substr(0, 3) / 60)} hours and{" "}
             {Runtime.substr(0, 3) % 60} minutes.
           </div>
-          <div className='da'>
-            Genre: {Genre}
-          </div>
+          <div>Genre: {Genre}</div>
           <div> Awards: {Awards}</div>
           <div> IMDB rating: {imdbRating}</div>
           <div>
