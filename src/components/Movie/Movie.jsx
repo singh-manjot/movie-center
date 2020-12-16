@@ -5,6 +5,7 @@ import Spinner from "../Spinner/Spinner";
 import { Title as PageTitle } from "../Title/Title";
 import { getUrlIfImageExists } from "../helpers";
 import "./Movie.css";
+import { Link } from "react-router-dom";
 
 const Movie = (props) => {
   const [movieData, setMovieData] = useState(null);
@@ -39,7 +40,6 @@ const Movie = (props) => {
       Awards,
       Poster,
       Ratings,
-      Type,
       imdbRating,
       Production,
     } = movieData;
@@ -55,28 +55,48 @@ const Movie = (props) => {
         </PageTitle>
         <img src={getUrlIfImageExists(Poster)} alt={Title}></img>
         <div className="data">
-          {Plot && (
+          {Plot && Plot !== "N/A" && (
             <>
               <div className="subHeading"> Plot</div>
               <div>{Plot}</div>{" "}
             </>
           )}
           <div className="subHeading"> Other Details</div>
-          <div>
-            Directed By {Director} and produced by {Production} in {Year}, "
-            {Title}" was released on {Released}, and starred {Actors}. Rated:
-            {Rated}, the {Type}'s total runtime is{" "}
-            {Math.round(Runtime.substr(0, 3) / 60)} hours and{" "}
-            {Runtime.substr(0, 3) % 60} minutes.
-          </div>
+          {Director !== "N/A" && <div>Directed By: {Director}</div>}
+          {Production && <div>Produced By: {Actors}</div>}
+          <div>Actors: {Actors}</div>
+          {Rated !== "N/A" && <div>PEGI Rating: {Rated}</div>}
+
+          <div>Release Date: {Released}</div>
           <div>Genre: {Genre}</div>
-          <div> Awards: {Awards}</div>
-          <div> IMDB rating: {imdbRating}</div>
-          <div>
-            Other Ratings:{" "}
-            {ratings.map((rating) => rating.Source + " (" + rating.Value + ")")}
-          </div>
+          {Runtime && (
+            <div>
+              Runtime:{Math.round(Runtime.substr(0, 3) / 60)} hours and{" "}
+              {Runtime.substr(0, 3) % 60} minutes
+            </div>
+          )}
+
+          {Awards !== "N/A" && <div> Awards: {Awards}</div>}
+          {imdbRating !== "N/A" && <div> IMDB rating: {imdbRating}</div>}
+          {ratings.length !== 0 && (
+            <div>
+              Other Ratings:{" "}
+              {ratings.map(
+                (rating) => rating.Source + " (" + rating.Value + ")"
+              )}
+            </div>
+          )}
         </div>
+        <Link
+          to={{
+            pathname: "/",
+            state: {
+              previousFilters: props.location.state.filters,
+            },
+          }}
+        >
+          <button className="goBack">Return to Home</button>
+        </Link>
       </div>
     );
   }

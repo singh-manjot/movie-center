@@ -8,10 +8,16 @@ const FilterRow = (props) => {
     <div className="row">
       <input
         onChange={(event) => {
-          props.onChange("Title", event.target.value);
+          setTimeout(() => {
+            props.onChange("Title", event.target.value);
+          }, 1500);
         }}
         name="titleSearch"
-        placeholder="Search By Title"
+        placeholder={
+          props.filterValues && props.filterValues.titleFilter
+            ? props.filterValues.titleFilter
+            : "Search By Title"
+        }
       ></input>
       <select
         className="filter"
@@ -22,7 +28,14 @@ const FilterRow = (props) => {
         }}
       >
         {yearOptions.map((year) => (
-          <option key={year} value={year}>
+          <option
+            key={year}
+            value={year}
+            selected={
+              year ==
+              (props.filterValues && props.filterValues.releaseYearFilter)
+            }
+          >
             {year === "" ? "Select Release Year" : year}
           </option>
         ))}
@@ -37,7 +50,14 @@ const FilterRow = (props) => {
         }}
       >
         {allowedMediaTypes.map((mediaType) => (
-          <option key={mediaType} value={mediaType}>
+          <option
+            key={mediaType}
+            value={mediaType}
+            selected={
+              mediaType ==
+              (props.filterValues && props.filterValues.mediaTypeFilter)
+            }
+          >
             {mediaType === "" ? "Select Media Type" : mediaType}
           </option>
         ))}

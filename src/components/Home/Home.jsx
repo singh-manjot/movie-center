@@ -8,10 +8,25 @@ import PageSwitch from "../PageSwitch/PageSwitch";
 import Spinner from "../Spinner/Spinner";
 import "./Home.css";
 
-const Home = () => {
-  const [titleFilter, setTitleFilter] = useState("Avengers");
-  const [releaseYearFilter, setReleaseYearFilter] = useState("");
-  const [mediaTypeFilter, setMediaTypeFilter] = useState("");
+const Home = (props) => {
+  let defaultTitle = "Avengers";
+  let defaultReleaseYear = "";
+  let defaultMediaType = "";
+  const previousFilters =
+    props.location.state && props.location.state.previousFilters
+      ? props.location.state.previousFilters
+      : null;
+
+  if (previousFilters) {
+    defaultTitle = previousFilters.titleFilter;
+    defaultMediaType = previousFilters.mediaTypeFilter;
+    defaultReleaseYear = previousFilters.releaseYearFilter;
+  }
+  const [titleFilter, setTitleFilter] = useState(defaultTitle);
+  const [releaseYearFilter, setReleaseYearFilter] = useState(
+    defaultReleaseYear
+  );
+  const [mediaTypeFilter, setMediaTypeFilter] = useState(defaultMediaType);
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,6 +53,7 @@ const Home = () => {
   };
   useEffect(() => {
     setLoading(true);
+
     let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${titleFilter}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${currentPage}`;
     axios
       .get(searchUrl)
@@ -57,7 +73,7 @@ const Home = () => {
   return (
     <div>
       <Title>Movie Center</Title>
-      <FilterRow onChange={onFilterChange} />
+      <FilterRow onChange={onFilterChange} filterValues={previousFilters} />
       {loading ? (
         <Spinner size={100} loading={loading} />
       ) : movies ? (
@@ -71,6 +87,7 @@ const Home = () => {
                   name={movie.Title}
                   imageUrl={movie.Poster}
                   releaseYear={movie.Year}
+                  filters={{ mediaTypeFilter, releaseYearFilter, titleFilter }}
                 ></MovieCard>
               ))}
           </span>
@@ -84,6 +101,7 @@ const Home = () => {
         <div className="nothingFound">
           Nothing Found. Please adjust filters to find a title! <br />
           <img
+            className="noPoster"
             src={process.env.PUBLIC_URL + "/nothing.png"}
             alt="Nothing Found"
           />
