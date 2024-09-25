@@ -54,7 +54,10 @@ const Home = (props) => {
   useEffect(() => {
     setLoading(true);
 
-    let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${titleFilter}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${currentPage}`;
+    let searchUrl = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&type=${mediaTypeFilter}&y=${releaseYearFilter}&page=${currentPage}`;
+    if (titleFilter) {
+      searchUrl += `&s=${titleFilter}`;
+    }
     axios
       .get(searchUrl)
       .then((response) => {
